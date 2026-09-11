@@ -31,7 +31,7 @@ const itemVariants: Variants = {
 
 export default function Services() {
   return (
-    <section id="services" className="scroll-mt-[5px] px-6 sm:px-10 lg:px-16 py-24 sm:py-28 relative overflow-hidden">
+    <section id="services" className="scroll-mt-[5px] px-4 sm:px-8 lg:px-16 py-16 sm:py-28 relative overflow-hidden">
       <div className="max-w-6xl mx-auto">
         {/* Section Header with Refined Typography */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-4">
@@ -48,7 +48,7 @@ export default function Services() {
             </motion.div>
 
             {/* Refined Animated Header */}
-            <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight lowercase text-paper">
+            <h2 className="mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight lowercase text-paper">
               <span className="block overflow-hidden py-0.5">
                 <motion.span
                   className="inline-block will-change-transform"
@@ -62,7 +62,7 @@ export default function Services() {
               </span>
               <span className="block overflow-hidden py-1">
                 <motion.span
-                  className="inline-block bg-white text-[#156338] px-3.5 sm:px-5 py-0.5 rounded-xl shadow-md will-change-transform font-extrabold"
+                  className="inline-block bg-white text-[#156338] px-3 sm:px-5 py-0.5 rounded-xl shadow-md will-change-transform font-extrabold"
                   initial={{ y: "100%", opacity: 0, filter: "blur(12px)" }}
                   whileInView={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
                   viewport={{ once: true }}
@@ -79,9 +79,9 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.35 }}
-            className="max-w-md space-y-3"
+            className="max-w-md space-y-2.5"
           >
-            <p className="text-base text-mute leading-relaxed">
+            <p className="text-sm sm:text-base text-mute leading-relaxed">
               one dedicated team, end to end — design, build, launch, and support. zero middlemen, zero bloated agency fees.
             </p>
             <div className="flex items-center gap-2 text-xs font-mono text-live">
@@ -97,15 +97,15 @@ export default function Services() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
-          className="mt-14 space-y-4"
+          className="mt-10 sm:mt-14 space-y-3.5 sm:space-y-4"
         >
           {services.map((s, i) => (
             <motion.div
               key={s.title}
               variants={itemVariants}
-              whileHover={{ scale: 1.015, y: -2 }}
+              whileHover={{ scale: 1.012, y: -2 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-line bg-surface/60 backdrop-blur-xl p-6 sm:p-8 transition-all duration-300 hover:border-white/40 hover:bg-surface/90 hover:shadow-2xl"
+              className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-line bg-surface/60 backdrop-blur-xl p-5 sm:p-8 transition-all duration-300 hover:border-white/40 hover:bg-surface/90 hover:shadow-2xl"
             >
               {/* Subtle Animated Hover Glow */}
               <div
@@ -113,36 +113,36 @@ export default function Services() {
                 aria-hidden
               />
 
-              <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
                 {/* Left: Number + Title + Tag */}
-                <div className="flex items-start gap-4 sm:gap-6 max-w-xl">
+                <div className="flex items-start gap-3.5 sm:gap-6 max-w-xl">
                   {/* Popping Number Badge */}
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-white/20 bg-black/40 font-mono text-sm font-bold text-live shadow-inner group-hover:scale-110 group-hover:border-live/60 transition-all duration-300">
+                  <div className="flex h-10 w-10 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-xl sm:rounded-2xl border border-white/20 bg-black/40 font-mono text-xs sm:text-sm font-bold text-live shadow-inner group-hover:scale-110 group-hover:border-live/60 transition-all duration-300">
                     {String(i + 1).padStart(2, "0")}
                   </div>
 
-                  <div className="space-y-1.5">
-                    <div className="flex flex-wrap items-center gap-2.5">
-                      <h3 className="text-xl sm:text-2xl font-bold tracking-tight lowercase text-paper group-hover:text-white transition-colors">
+                  <div className="space-y-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="text-lg sm:text-2xl font-bold tracking-tight lowercase text-paper group-hover:text-white transition-colors">
                         {s.title}
                       </h3>
                       {s.tag && (
-                        <span className="inline-block rounded-full bg-white/10 px-2.5 py-0.5 font-mono text-[11px] text-faint group-hover:bg-live/20 group-hover:text-live transition-colors">
+                        <span className="inline-block rounded-full bg-white/10 px-2.5 py-0.5 font-mono text-[10px] sm:text-[11px] text-faint group-hover:bg-live/20 group-hover:text-live transition-colors">
                           {s.tag}
                         </span>
                       )}
                     </div>
-                    <p className="text-sm sm:text-[15px] text-mute leading-relaxed">
+                    <p className="text-xs sm:text-[15px] text-mute leading-relaxed">
                       {s.description}
                     </p>
                   </div>
                 </div>
 
                 {/* Right: Quick Action Pill */}
-                <div className="flex items-center gap-3 self-end md:self-center shrink-0">
+                <div className="flex items-center gap-3 self-stretch sm:self-end md:self-center shrink-0 pt-2 sm:pt-0">
                   <a
                     href="#contact"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 font-mono text-xs font-medium text-mute group-hover:border-white/50 group-hover:bg-paper group-hover:text-ink transition-all duration-200 shadow-sm"
+                    className="w-full sm:w-auto inline-flex min-h-[42px] items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 font-mono text-xs font-medium text-mute group-hover:border-white/50 group-hover:bg-paper group-hover:text-ink transition-all duration-200 shadow-sm"
                   >
                     <span>inquire for this</span>
                     <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
@@ -159,14 +159,14 @@ export default function Services() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-12 rounded-3xl border border-line bg-surface/80 backdrop-blur-xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl"
+          className="mt-10 sm:mt-12 rounded-2xl sm:rounded-3xl border border-line bg-surface/80 backdrop-blur-xl p-5 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl"
         >
-          <div className="space-y-1 text-center sm:text-left">
-            <div className="flex items-center justify-center sm:justify-start gap-2 font-mono text-xs text-live">
+          <div className="space-y-1 text-center lg:text-left w-full lg:w-auto">
+            <div className="flex items-center justify-center lg:justify-start gap-2 font-mono text-xs text-live">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Flat fee guarantee</span>
             </div>
-            <p className="text-lg font-bold text-paper">
+            <p className="text-base sm:text-lg font-bold text-paper">
               Every project is quoted flat before kickoff — 0 hourly surprises.
             </p>
             <p className="font-mono text-xs text-faint">
@@ -174,13 +174,13 @@ export default function Services() {
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
-            <Magnetic className="inline-block">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto shrink-0">
+            <Magnetic className="w-full sm:w-auto">
               <a
                 href={site.whatsappLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-3 text-sm font-bold text-neutral-900 shadow-lg hover:bg-neutral-100 hover:shadow-2xl transition-all"
+                className="flex min-h-[48px] items-center justify-center gap-2.5 rounded-full bg-white px-6 py-3 text-sm font-bold text-neutral-900 shadow-lg hover:bg-neutral-100 hover:shadow-2xl active:scale-[0.98] transition-all text-center"
               >
                 <WhatsAppIcon className="h-4 w-4 text-[#15803d]" />
                 <span>Quick WhatsApp Quote</span>
@@ -188,7 +188,7 @@ export default function Services() {
             </Magnetic>
             <a
               href="#contact"
-              className="rounded-full border border-line px-5 py-3 text-sm font-medium text-mute hover:text-paper hover:border-white/30 transition-colors font-mono"
+              className="flex min-h-[48px] items-center justify-center rounded-full border border-line px-5 py-3 text-sm font-medium text-mute hover:text-paper hover:border-white/30 active:scale-[0.98] transition-colors font-mono text-center"
             >
               fill form →
             </a>

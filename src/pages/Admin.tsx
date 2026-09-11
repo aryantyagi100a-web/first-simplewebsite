@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { PillButton } from "../components/ui";
+import { PillButton, WhatsAppIcon } from "../components/ui";
+import { ArrowLeft, Mail, LogOut } from "lucide-react";
 
 type Message = {
   id: number;
@@ -91,37 +92,37 @@ export default function Admin() {
   }
 
   if (authed === null) {
-    return <div className="min-h-screen bg-ink text-mute font-mono text-sm p-10">checking…</div>;
+    return <div className="min-h-screen bg-ink text-mute font-mono text-sm p-10 flex items-center justify-center">checking…</div>;
   }
 
   if (!authed) {
     return (
-      <div className="min-h-screen bg-ink text-paper flex items-center justify-center px-5">
-        <form onSubmit={handleLogin} className="w-full max-w-sm">
-          <p className="font-mono text-[13px] text-faint">[ admin ]</p>
-          <h1 className="mt-3 text-2xl font-semibold tracking-tight lowercase">enter the password</h1>
+      <div className="min-h-screen bg-ink text-paper flex items-center justify-center px-4 py-8">
+        <form onSubmit={handleLogin} className="w-full max-w-sm rounded-2xl border border-line bg-surface/80 backdrop-blur-xl p-6 sm:p-8 shadow-2xl">
+          <p className="font-mono text-xs sm:text-[13px] text-faint">[ admin ]</p>
+          <h1 className="mt-2 text-xl sm:text-2xl font-semibold tracking-tight lowercase">enter the password</h1>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="admin password"
             autoFocus
-            className="mt-6 w-full rounded-xl border border-line bg-surface px-4 py-3 text-[15px] outline-none transition focus:border-white/25"
+            className="mt-5 w-full rounded-xl border border-line bg-surface px-4 py-3.5 text-base text-paper outline-none transition focus:border-white/35"
           />
           {error && (
             <p role="alert" className="mt-3 font-mono text-xs text-err">
               {error}
             </p>
           )}
-          <div className="mt-5 flex items-center gap-4">
-            <PillButton type="submit" disabled={loading}>
+          <div className="mt-5 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+            <PillButton type="submit" disabled={loading} className="w-full sm:w-auto min-h-[44px]">
               {loading ? "checking…" : "unlock"}
             </PillButton>
-            <Link to="/" className="font-mono text-[13px] text-mute hover:text-paper transition-colors">
+            <Link to="/" className="inline-flex min-h-[44px] items-center justify-center font-mono text-xs sm:text-[13px] text-mute hover:text-paper transition-colors">
               ← back to site
             </Link>
           </div>
-          <p className="mt-8 font-mono text-[11px] leading-relaxed text-faint">
+          <p className="mt-6 font-mono text-[11px] leading-relaxed text-faint">
             set with ADMIN_PASSWORD in the .env file — see .env.example
           </p>
         </form>
@@ -130,52 +131,89 @@ export default function Admin() {
   }
 
   return (
-    <div className="min-h-screen bg-ink text-paper px-5 sm:px-8 py-10">
+    <div className="min-h-screen bg-ink text-paper px-4 sm:px-8 py-8 sm:py-10">
       <div className="mx-auto max-w-5xl">
-        <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-line pb-6">
           <div>
-            <p className="font-mono text-[13px] text-faint">[ admin ]</p>
-            <h1 className="mt-2 text-2xl font-semibold tracking-tight lowercase">
-              {messages.length} {messages.length === 1 ? "message" : "messages"}
+            <p className="font-mono text-xs sm:text-[13px] text-faint">[ admin ]</p>
+            <h1 className="mt-1 text-2xl sm:text-3xl font-bold tracking-tight lowercase">
+              {messages.length} {messages.length === 1 ? "lead / message" : "leads & messages"}
             </h1>
           </div>
-          <div className="flex items-center gap-5">
-            <button onClick={logout} className="font-mono text-[13px] text-mute hover:text-paper transition-colors">
-              log out
+          <div className="flex items-center gap-3 sm:gap-4">
+            <button
+              onClick={logout}
+              className="inline-flex min-h-[40px] items-center gap-1.5 rounded-xl border border-line bg-surface/50 px-3.5 py-2 font-mono text-xs text-mute hover:text-paper hover:bg-raised transition-colors cursor-pointer"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span>log out</span>
             </button>
-            <Link to="/" className="font-mono text-[13px] text-mute hover:text-paper transition-colors">
-              view site →
+            <Link
+              to="/"
+              className="inline-flex min-h-[40px] items-center gap-1.5 rounded-xl bg-paper px-4 py-2 font-mono text-xs font-semibold text-ink hover:opacity-90 transition-opacity"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>view site</span>
             </Link>
           </div>
         </div>
 
         {messages.length === 0 ? (
-          <p className="mt-16 font-mono text-sm text-faint">no messages yet — they'll show up here the moment the form is used.</p>
+          <div className="mt-16 text-center rounded-2xl border border-dashed border-line p-10">
+            <p className="font-mono text-sm text-faint">no messages yet — they'll show up here the moment someone submits the contact form.</p>
+          </div>
         ) : (
-          <ul className="mt-10 border-t border-line">
+          <div className="mt-6 space-y-4">
             {messages.map((m) => (
-              <li key={m.id} className="grid gap-2 border-b border-line py-5 sm:grid-cols-[10rem_1fr] sm:gap-6">
-                <div className="space-y-1.5">
-                  <p className="font-mono text-xs text-faint">{formatDate(m.created_at)}</p>
-                  <p className="text-sm font-semibold">{m.name}</p>
+              <div
+                key={m.id}
+                className="rounded-2xl border border-line bg-surface/70 backdrop-blur-md p-5 sm:p-6 transition-all hover:border-white/30"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-line/60 pb-3 mb-4">
+                  <div className="flex items-center gap-3">
+                    <span className="text-base sm:text-lg font-bold text-paper capitalize">{m.name}</span>
+                    <span className="font-mono text-[11px] text-faint bg-black/40 px-2.5 py-0.5 rounded-full border border-white/10">
+                      #{m.id}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-3 font-mono text-xs text-faint">
+                    <span>{formatDate(m.created_at)}</span>
+                    <span>·</span>
+                    <span className={m.notified ? "text-live" : "text-faint"}>
+                      {m.notified ? "✓ emailed" : "saved to db"}
+                    </span>
+                  </div>
+                </div>
+
+                <p className="whitespace-pre-wrap text-sm sm:text-[15px] leading-relaxed text-paper/95 bg-black/30 p-4 rounded-xl border border-white/10">
+                  {m.message}
+                </p>
+
+                <div className="mt-4 flex flex-wrap items-center gap-2 pt-1">
                   {m.email && (
-                    <a href={`mailto:${m.email}`} className="block truncate font-mono text-xs text-mute hover:text-paper">
-                      {m.email}
+                    <a
+                      href={`mailto:${m.email}`}
+                      className="inline-flex min-h-[38px] items-center gap-2 rounded-xl border border-line bg-surface px-3.5 py-2 font-mono text-xs text-mute hover:text-paper hover:bg-raised transition-colors"
+                    >
+                      <Mail className="w-3.5 h-3.5 text-faint" />
+                      <span>{m.email}</span>
                     </a>
                   )}
                   {m.phone && (
-                    <a href={`https://wa.me/${m.phone.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" className="block font-mono text-xs text-mute hover:text-paper">
-                      {m.phone}
+                    <a
+                      href={`https://wa.me/${m.phone.replace(/\D/g, "")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-[38px] items-center gap-2 rounded-xl border border-line bg-surface px-3.5 py-2 font-mono text-xs text-mute hover:text-paper hover:bg-raised transition-colors"
+                    >
+                      <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>{m.phone} (WhatsApp)</span>
                     </a>
                   )}
-                  <p className="font-mono text-[10px] text-faint">
-                    {m.notified ? "✓ emailed to you" : "saved only (email off or failed)"}
-                  </p>
                 </div>
-                <p className="whitespace-pre-wrap text-sm leading-relaxed text-paper/90">{m.message}</p>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
     </div>

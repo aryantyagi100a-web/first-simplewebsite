@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
 import { site } from "../site.config";
 import { BracketLabel, Magnetic, PillButton, WhatsAppIcon } from "./ui";
+import { ArrowUpRight } from "lucide-react";
 
 type Status = "idle" | "sending" | "success" | "error";
 type FieldErrors = Partial<Record<"name" | "email" | "phone" | "message" | "contact", string>>;
@@ -62,7 +63,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="scroll-mt-[5px] px-6 sm:px-10 lg:px-16 py-24 sm:py-28">
+    <section id="contact" className="scroll-mt-[5px] px-4 sm:px-8 lg:px-16 py-16 sm:py-28">
       <motion.div
         className="max-w-6xl mx-auto"
         initial={{ opacity: 0, y: 30 }}
@@ -71,28 +72,28 @@ export default function ContactSection() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         <p className="font-mono text-xs sm:text-[13px] text-faint">[ contact ]</p>
-        <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight lowercase text-paper">
+        <h2 className="mt-2 sm:mt-3 text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight lowercase text-paper">
           tell me about your business
         </h2>
-        <p className="mt-4 max-w-xl text-base text-mute leading-relaxed font-normal">
+        <p className="mt-3 sm:mt-4 max-w-xl text-sm sm:text-base text-mute leading-relaxed font-normal">
           a rough idea is enough — i'll reply with what i'd suggest and what it would cost. {site.heroNote}.
         </p>
 
-        <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
+        <div className="mt-8 sm:mt-12 grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
           {/* ---------------- form ---------------- */}
           <div>
             {status === "success" ? (
-              <div className="rounded-2xl border border-line bg-surface p-8 sm:p-10">
+              <div className="rounded-2xl sm:rounded-3xl border border-line bg-surface p-6 sm:p-10">
                 <p className="font-mono text-[13px] text-live">[ message sent ]</p>
-                <p className="mt-4 text-2xl font-semibold tracking-tight lowercase">
+                <p className="mt-3 text-xl sm:text-2xl font-semibold tracking-tight lowercase">
                   got it — thanks!
                 </p>
-                <p className="mt-3 text-mute leading-relaxed">
+                <p className="mt-2.5 text-sm sm:text-base text-mute leading-relaxed">
                   i'll get back to you {site.heroNote}. in a hurry? whatsapp is faster.
                 </p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Magnetic className="inline-block">
-                    <PillButton type="button" onClick={() => setStatus("idle")}>
+                <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                  <Magnetic className="w-full sm:w-auto">
+                    <PillButton type="button" onClick={() => setStatus("idle")} className="w-full sm:w-auto">
                       send another message
                     </PillButton>
                   </Magnetic>
@@ -101,14 +102,14 @@ export default function ContactSection() {
                     href={site.whatsappLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-mute hover:text-paper transition-colors self-center"
+                    className="text-mute hover:text-paper transition-colors self-center py-2"
                   >
                     whatsapp me instead
                   </BracketLabel>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate className="space-y-5">
+              <form onSubmit={handleSubmit} noValidate className="space-y-4 sm:space-y-5">
                 {/* honeypot — hidden from humans, catnip for bots */}
                 <div className="hp-field" aria-hidden="true">
                   <label>
@@ -117,7 +118,7 @@ export default function ContactSection() {
                   </label>
                 </div>
 
-                <div className="grid gap-5 sm:grid-cols-2">
+                <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2">
                   <Field label="your name" htmlFor="cf-name" error={errors.name}>
                     <input
                       id="cf-name"
@@ -158,25 +159,25 @@ export default function ContactSection() {
                     id="cf-message"
                     name="message"
                     required
-                    rows={5}
+                    rows={4}
                     placeholder="what's your business, and what do you need the website to do?"
-                    className={`${inputCls(!!errors.message)} resize-y min-h-[120px]`}
+                    className={`${inputCls(!!errors.message)} resize-y min-h-[110px] sm:min-h-[130px]`}
                   />
                 </Field>
 
                 {status === "error" && (
-                  <p role="alert" className="rounded-xl border border-err/30 bg-err/10 px-4 py-3 text-sm text-err">
+                  <p role="alert" className="rounded-xl border border-err/30 bg-err/10 px-4 py-3 text-xs sm:text-sm text-err">
                     {serverError}
                   </p>
                 )}
 
-                <div className="flex flex-wrap items-center gap-4 pt-1">
-                  <Magnetic className="inline-block">
-                    <PillButton type="submit" disabled={status === "sending"}>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-1">
+                  <Magnetic className="w-full sm:w-auto">
+                    <PillButton type="submit" disabled={status === "sending"} className="w-full sm:w-auto min-h-[48px]">
                       {status === "sending" ? "sending…" : "send message"}
                     </PillButton>
                   </Magnetic>
-                  <span className="font-mono text-xs text-faint">replies {site.heroNote}</span>
+                  <span className="font-mono text-xs text-faint text-center sm:text-left">replies {site.heroNote}</span>
                 </div>
               </form>
             )}
@@ -184,11 +185,11 @@ export default function ContactSection() {
 
           {/* ---------------- direct links ---------------- */}
           <aside className="lg:pl-8 lg:border-l lg:border-line">
-            <p className="font-mono text-[13px] text-faint">[ prefer to talk directly? ]</p>
-            <div className="mt-6 space-y-3">
+            <p className="font-mono text-xs sm:text-[13px] text-faint">[ prefer to talk directly? ]</p>
+            <div className="mt-4 sm:mt-6 space-y-3">
               <DirectLink
                 href={site.whatsappLink}
-                icon={<WhatsAppIcon className="h-5 w-5" />}
+                icon={<WhatsAppIcon className="h-5 w-5 text-emerald-400" />}
                 title="whatsapp"
                 sub={site.whatsappDisplay}
               />
@@ -206,7 +207,7 @@ export default function ContactSection() {
                 external
               />
             </div>
-            <p className="mt-8 text-sm text-mute leading-relaxed">
+            <p className="mt-6 sm:mt-8 text-xs sm:text-sm text-mute leading-relaxed">
               messages usually get a reply the same day. for quotes, whatsapp is fastest — a photo of your shop
               or a line about your work is a great start.
             </p>
@@ -220,7 +221,7 @@ export default function ContactSection() {
 /* ---------------- small internals ---------------- */
 
 function inputCls(hasError: boolean) {
-  return `w-full rounded-xl border bg-surface px-4 py-3 text-[15px] text-paper placeholder:text-faint outline-none transition focus:border-white/25 ${
+  return `w-full rounded-xl border bg-surface px-4 py-3.5 text-base sm:text-[15px] text-paper placeholder:text-faint/70 outline-none transition focus:border-white/35 ${
     hasError ? "border-err/60" : "border-line"
   }`;
 }
@@ -238,7 +239,7 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={htmlFor} className="mb-2 block font-mono text-xs text-mute">
+      <label htmlFor={htmlFor} className="mb-1.5 block font-mono text-xs text-mute">
         {label}
       </label>
       {children}
@@ -249,7 +250,7 @@ function Field({
 
 function ErrorText({ children }: { children: React.ReactNode }) {
   return (
-    <p role="alert" className="mt-2 font-mono text-xs text-err">
+    <p role="alert" className="mt-1.5 font-mono text-xs text-err">
       {children}
     </p>
   );
@@ -273,15 +274,18 @@ function DirectLink({
       <a
         href={href}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        className="group flex items-center gap-4 rounded-2xl border border-line bg-surface px-5 py-4 transition hover:border-white/20 hover:bg-raised"
+        className="group flex min-h-[56px] items-center justify-between gap-4 rounded-2xl border border-line bg-surface px-4 sm:px-5 py-3.5 sm:py-4 transition hover:border-white/30 hover:bg-raised active:bg-white/10"
       >
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line text-paper">
-          {icon}
-        </span>
-        <span className="min-w-0">
-          <span className="block text-sm font-semibold lowercase">{title}</span>
-          <span className="block truncate font-mono text-xs text-mute">{sub}</span>
-        </span>
+        <div className="flex items-center gap-3.5 min-w-0">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-line bg-black/30 text-paper">
+            {icon}
+          </span>
+          <span className="min-w-0">
+            <span className="block text-sm font-semibold lowercase text-paper">{title}</span>
+            <span className="block truncate font-mono text-xs text-mute">{sub}</span>
+          </span>
+        </div>
+        <ArrowUpRight className="w-4 h-4 text-faint group-hover:text-paper group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform shrink-0" />
       </a>
     </Magnetic>
   );

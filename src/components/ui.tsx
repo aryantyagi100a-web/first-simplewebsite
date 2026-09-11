@@ -48,7 +48,7 @@ export function PillButton({ className = "", disabled, ...rest }: ButtonHTMLAttr
       transition={{ type: "spring", stiffness: 420, damping: 22 }}
       disabled={disabled}
       {...(rest as Record<string, unknown>)}
-      className={`inline-flex items-center justify-center rounded-full bg-paper px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 shadow-sm ${className}`}
+      className={`inline-flex min-h-[44px] sm:min-h-[42px] items-center justify-center rounded-full bg-paper px-6 py-2.5 text-sm sm:text-[15px] font-semibold text-ink transition-colors hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50 shadow-sm cursor-pointer ${className}`}
     />
   );
 }

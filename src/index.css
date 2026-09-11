@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-ink: #156338;
+  --color-surface: rgba(14, 68, 38, 0.76);
+  --color-raised: rgba(255, 255, 255, 0.14);
+  --color-line: rgba(255, 255, 255, 0.2);
+  --color-paper: #ffffff;
+  --color-mute: #d1fae5;
+  --color-faint: #a7f3d0;
+  --color-live: #fde047;
+  --color-err: #f87171;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* Visible focus for keyboard users, no outlines on mouse clicks */
+:focus-visible {
+  outline: 2px solid rgba(245, 245, 243, 0.7);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Hidden honeypot field for bots */
+.hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
